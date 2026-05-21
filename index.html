@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BAYES-GUARD Advisory, LLC</title>
+  <meta name="description" content="BAYES-GUARD Advisory, LLC — a Georgia limited liability company organized for the development of probabilistic risk methodologies in cybersecurity." />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="BAYES-GUARD Advisory, LLC" />
+  <meta property="og:description" content="A Georgia limited liability company organized for the development of probabilistic risk methodologies in cybersecurity." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #1a1612;
+      --ink-soft: #2d2620;
+      --bone: #f1ebdd;
+      --bone-deep: #e6dfce;
+      --rule: #c9bfa9;
+      --rule-soft: #d8cfb9;
+      --accent: #7a2e1f;
+      --accent-soft: #b8826b;
+      --muted: #6b6155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bone);
+      color: var(--ink);
+      font-family: 'Inter Tight', system-ui, sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.65;
+      letter-spacing: 0.005em;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at top left, rgba(184,130,107,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at bottom right, rgba(122,46,31,0.06) 0%, transparent 65%);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.06 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.6;
+      z-index: 1;
+      mix-blend-mode: multiply;
+    }
+
+    main, header, footer { position: relative; z-index: 2; }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      border-bottom: 1px solid var(--rule);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .topbar .mark { color: var(--ink); font-weight: 500; letter-spacing: 0.18em; }
+    .topbar .meta { display: flex; gap: 32px; }
+    .topbar .meta span { display: flex; align-items: center; gap: 8px; }
+    .topbar .meta span::before {
+      content: ''; display: inline-block; width: 5px; height: 5px;
+      background: var(--accent); border-radius: 50%;
+    }
+
+    .hero {
+      padding: 110px 48px 90px;
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 80px;
+      align-items: end;
+    }
+
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 36px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .hero-label::before { content: ''; width: 36px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-variation-settings: 'opsz' 144;
+      font-size: clamp(52px, 7.2vw, 104px);
+      line-height: 0.96;
+      letter-spacing: -0.028em;
+      color: var(--ink);
+      margin-bottom: 36px;
+    }
+    h1 .em { font-style: italic; font-weight: 300; color: var(--accent); }
+
+    .hero-tagline {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 30;
+      font-size: 21px; font-weight: 300; line-height: 1.45;
+      color: var(--ink-soft);
+      max-width: 32ch;
+      letter-spacing: -0.005em;
+    }
+    .hero-tagline em { font-style: italic; color: var(--accent); }
+
+    .hero-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); line-height: 1.9;
+    }
+    .hero-meta dt { color: var(--accent); font-weight: 500; margin-top: 16px; }
+    .hero-meta dt:first-child { margin-top: 0; }
+    .hero-meta dd {
+      color: var(--ink); font-weight: 400;
+      text-transform: none; letter-spacing: 0.02em;
+    }
+
+    .section {
+      padding: 80px 48px;
+      max-width: 1280px;
+      margin: 0 auto;
+      border-top: 1px solid var(--rule);
+    }
+    .section-grid {
+      display: grid; grid-template-columns: 1fr 2fr;
+      gap: 80px; align-items: start;
+    }
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .section-label {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 30;
+      font-size: 24px; font-weight: 400; font-style: italic;
+      color: var(--ink-soft); margin-top: 8px; line-height: 1.25;
+    }
+    .section-aside { position: sticky; top: 32px; }
+
+    .prose { max-width: 62ch; }
+    .prose p { margin-bottom: 18px; color: var(--ink-soft); }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose .lead {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 18;
+      font-size: 22px; line-height: 1.5;
+      color: var(--ink); font-weight: 400;
+      margin-bottom: 28px; letter-spacing: -0.005em;
+    }
+    .prose .lead em { font-style: italic; color: var(--accent); }
+    .prose .lead::first-letter {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 144;
+      font-weight: 400; font-size: 64px;
+      float: left; line-height: 0.85;
+      margin: 6px 10px -2px 0;
+      color: var(--accent);
+    }
+
+    .pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin-top: 36px;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .pillar { padding: 32px 28px 32px 0; border-right: 1px solid var(--rule-soft); }
+    .pillar:last-child { border-right: none; padding-right: 0; }
+    .pillar:not(:first-child) { padding-left: 28px; }
+    .pillar-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--accent);
+      letter-spacing: 0.18em; margin-bottom: 16px;
+    }
+    .pillar-title {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 30;
+      font-size: 20px; font-weight: 500; line-height: 1.25;
+      letter-spacing: -0.01em; margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .pillar-body { font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+
+    .pull {
+      margin: 48px 0 0;
+      padding: 32px 0 28px;
+      border-top: 1px solid var(--rule-soft);
+      border-bottom: 1px solid var(--rule-soft);
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 24;
+      font-size: 20px; font-style: italic; font-weight: 400;
+      line-height: 1.45; color: var(--ink-soft);
+      letter-spacing: -0.005em;
+    }
+    .pull::before {
+      content: '"';
+      font-size: 56px; line-height: 0;
+      color: var(--accent);
+      vertical-align: -0.35em;
+      margin-right: 6px;
+    }
+
+    .record {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 0; border-top: 1px solid var(--rule); margin-top: 20px;
+    }
+    .record-row {
+      display: grid; grid-template-columns: 1fr 1.6fr;
+      gap: 24px; padding: 18px 0;
+      border-bottom: 1px solid var(--rule-soft);
+      align-items: baseline;
+    }
+    .record-row dt {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .record-row dd {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 15px; color: var(--ink);
+      font-weight: 400; letter-spacing: 0.005em;
+    }
+    .record-row dd .pending {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.08em;
+      color: var(--accent-soft); font-style: italic;
+    }
+    .record-col { padding-right: 32px; }
+    .record-col + .record-col {
+      padding-left: 32px; padding-right: 0;
+      border-left: 1px solid var(--rule-soft);
+    }
+
+    .notice {
+      margin-top: 48px;
+      padding: 28px 32px;
+      background: var(--bone-deep);
+      border-left: 3px solid var(--accent);
+      font-size: 14.5px; line-height: 1.65;
+      color: var(--ink-soft);
+    }
+    .notice strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); display: block;
+      margin-bottom: 8px; font-weight: 500;
+    }
+
+    .contact-block {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; margin-top: 24px;
+    }
+    .contact-block h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .contact-block .email {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 36;
+      font-size: 28px; font-weight: 400; color: var(--ink);
+      letter-spacing: -0.015em;
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 4px;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+    .contact-block .email:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .contact-block .address {
+      font-size: 15px; line-height: 1.65;
+      color: var(--ink-soft); font-style: normal;
+    }
+    .contact-block .address .entity { color: var(--ink); font-weight: 400; }
+
+    footer {
+      margin-top: 80px;
+      padding: 40px 48px 48px;
+      border-top: 1px solid var(--rule);
+      max-width: 1280px;
+      margin-left: auto; margin-right: auto;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 40px; flex-wrap: wrap;
+    }
+    .footer-mark {
+      font-family: 'Fraunces', serif;
+      font-variation-settings: 'opsz' 48;
+      font-size: 28px; font-weight: 400;
+      letter-spacing: -0.015em; color: var(--ink);
+    }
+    .footer-mark em { font-style: italic; color: var(--accent); }
+    .footer-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); line-height: 2; text-align: right;
+    }
+    .footer-fineprint {
+      margin-top: 36px; padding-top: 24px;
+      border-top: 1px solid var(--rule-soft);
+      font-size: 12px; line-height: 1.7;
+      color: var(--muted); max-width: 90ch;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-label { animation: rise 0.7s ease-out 0.1s both; }
+    h1 { animation: rise 0.9s ease-out 0.25s both; }
+    .hero-tagline { animation: rise 0.7s ease-out 0.45s both; }
+    .hero-meta { animation: rise 0.7s ease-out 0.6s both; }
+
+    @media (max-width: 920px) {
+      .topbar { padding: 20px 24px; flex-direction: column; gap: 12px; align-items: flex-start; }
+      .topbar .meta { gap: 20px; }
+      .hero { padding: 72px 24px 60px; grid-template-columns: 1fr; gap: 48px; }
+      .section { padding: 60px 24px; }
+      .section-grid { grid-template-columns: 1fr; gap: 32px; }
+      .section-aside { position: static; }
+      .pillars { grid-template-columns: 1fr; }
+      .pillar { border-right: none; border-bottom: 1px solid var(--rule-soft); padding: 24px 0; }
+      .pillar:not(:first-child) { padding-left: 0; }
+      .pillar:last-child { border-bottom: none; }
+      .record { grid-template-columns: 1fr; }
+      .record-col + .record-col {
+        border-left: none; border-top: 1px solid var(--rule-soft);
+        padding-left: 0; padding-top: 0;
+      }
+      .record-col { padding-right: 0; }
+      .contact-block { grid-template-columns: 1fr; gap: 36px; }
+      .contact-block .email { font-size: 22px; }
+      footer { padding: 32px 24px; }
+      .footer-top { flex-direction: column; }
+      .footer-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="mark">BAYES-GUARD ADVISORY, LLC</div>
+    <div class="meta">
+      <span>Georgia, USA</span>
+      <span>In Formation</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="hero-label">Corporate Information</div>
+      <h1>
+        Probabilistic<br>
+        risk, <span class="em">measured.</span>
+      </h1>
+      <p class="hero-tagline">
+        A Georgia limited liability company organized for the development of
+        <em>Bayesian methodologies</em> for cybersecurity risk assessment, training, and certification.
+      </p>
+    </div>
+    <dl class="hero-meta">
+      <dt>Entity</dt>
+      <dd>BAYES-GUARD Advisory, LLC</dd>
+      <dt>Jurisdiction</dt>
+      <dd>State of Georgia, United States</dd>
+      <dt>Structure</dt>
+      <dd>Single-Member, Member-Managed</dd>
+      <dt>Status</dt>
+      <dd>In Formation</dd>
+    </dl>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-grid">
+      <aside class="section-aside">
+        <div class="section-num">§ 01</div>
+        <div class="section-label">About<br>the Entity</div>
+      </aside>
+      <div class="prose">
+        <p class="lead">
+          BAYES-GUARD Advisory, LLC is a Georgia limited liability company organized as the
+          United States corporate vehicle for the <em>BAYES-GUARD framework</em> — a body of
+          research and applied methodology concerned with the probabilistic assessment of
+          cybersecurity risk in critical-infrastructure environments.
+        </p>
+        <p>
+          The entity exists to hold, develop, and license the intellectual property associated
+          with the framework, and to serve as the future operating platform for advisory,
+          research, and training activities once all applicable regulatory milestones have been
+          satisfied.
+        </p>
+        <p>
+          The Company is presently pre-operational. It maintains its registered office and
+          principal place of business in the State of Georgia.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="methodology">
+    <div class="section-grid">
+      <aside class="section-aside">
+        <div class="section-num">§ 02</div>
+        <div class="section-label">The<br>BAYES-GUARD<br>Framework</div>
+      </aside>
+      <div class="prose" style="max-width: none;">
+        <p class="lead">
+          The framework applies <em>Bayesian inference</em> to the quantification of
+          adversarial and operational risk in industrial control systems, enterprise
+          networks, and cyber-physical infrastructure.
+        </p>
+        <p>
+          Conventional cybersecurity risk assessment relies heavily on qualitative
+          heuristics — high, medium, low — which obscure uncertainty and resist principled
+          updating as new evidence emerges. BAYES-GUARD treats risk as a posterior
+          probability distribution, formally combining prior knowledge of threat actors,
+          system topology, and historical incident data with continuously incoming
+          telemetry to produce calibrated, decision-grade estimates.
+        </p>
+
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-num">I.</div>
+            <div class="pillar-title">Probabilistic Risk Modeling</div>
+            <div class="pillar-body">
+              Formal Bayesian models of attack graphs, exposure surfaces, and
+              consequence pathways across critical-infrastructure sectors.
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">II.</div>
+            <div class="pillar-title">Methodology Licensing</div>
+            <div class="pillar-body">
+              Curricula, reference implementations, and assessment protocols
+              made available under controlled licenses to academic and
+              institutional partners.
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">III.</div>
+            <div class="pillar-title">Training &amp; Certification</div>
+            <div class="pillar-body">
+              Structured training programs and a certification pathway for
+              practitioners of probabilistic cybersecurity risk assessment.
+            </div>
+          </div>
+        </div>
+
+        <p class="pull">
+          The framework is the product of original research and is intended to be
+          contributed to the United States cybersecurity practice as a public-interest
+          methodology for the assessment and reduction of national infrastructure risk.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="record">
+    <div class="section-grid">
+      <aside class="section-aside">
+        <div class="section-num">§ 03</div>
+        <div class="section-label">Corporate<br>Record</div>
+      </aside>
+      <div style="width: 100%;">
+        <div class="record">
+          <div class="record-col">
+            <div class="record-row">
+              <dt>Legal Name</dt>
+              <dd>BAYES-GUARD Advisory, LLC</dd>
+            </div>
+            <div class="record-row">
+              <dt>Entity Type</dt>
+              <dd>Limited Liability Company</dd>
+            </div>
+            <div class="record-row">
+              <dt>Jurisdiction</dt>
+              <dd>State of Georgia, USA</dd>
+            </div>
+            <div class="record-row">
+              <dt>Formation</dt>
+              <dd><span class="pending">Pending — 2026</span></dd>
+            </div>
+          </div>
+          <div class="record-col">
+            <div class="record-row">
+              <dt>Control Number</dt>
+              <dd><span class="pending">Pending Issuance</span></dd>
+            </div>
+            <div class="record-row">
+              <dt>EIN</dt>
+              <dd><span class="pending">Pending IRS Assignment</span></dd>
+            </div>
+            <div class="record-row">
+              <dt>Management</dt>
+              <dd>Member-Managed</dd>
+            </div>
+            <div class="record-row">
+              <dt>Registered Office</dt>
+              <dd>Statesboro, Georgia</dd>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice">
+          <strong>Notice — Operational Status</strong>
+          BAYES-GUARD Advisory, LLC is in the formation phase and is not presently
+          engaged in the provision of services, the solicitation of clients, or any
+          form of commercial trading. The Company will commence operations only after
+          all applicable corporate, tax, and regulatory milestones have been
+          satisfied. This page is published as corporate information and does not
+          constitute an offer of services.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-grid">
+      <aside class="section-aside">
+        <div class="section-num">§ 04</div>
+        <div class="section-label">Contact</div>
+      </aside>
+      <div style="width: 100%;">
+        <div class="contact-block">
+          <div>
+            <h3>General Inquiries</h3>
+            <a href="mailto:contact@bayesguard-advisory.com" class="email">contact@bayesguard&#8209;advisory.com</a>
+          </div>
+          <div>
+            <h3>Registered Office</h3>
+            <address class="address">
+              <span class="entity">BAYES-GUARD Advisory, LLC</span><br>
+              Statesboro, Georgia<br>
+              United States of America
+            </address>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-mark">
+        BAYES-GUARD <em>Advisory</em>
+      </div>
+      <div class="footer-meta">
+        © <span id="year">2026</span> BAYES-GUARD Advisory, LLC<br>
+        Organized under the laws of the State of Georgia<br>
+        All rights reserved
+      </div>
+    </div>
+    <div class="footer-fineprint">
+      This website constitutes corporate-information communication only. Nothing on this page
+      shall be construed as an offer to sell, a solicitation of an offer to buy, or a
+      recommendation of any service, product, or security. The BAYES-GUARD framework and all
+      associated names, methodologies, and materials are the intellectual property of the
+      Company and its founder. References to future activities reflect the Company&rsquo;s
+      organizational intent and are not commitments to perform services at the present time.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
